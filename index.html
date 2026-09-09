@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Block Code</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h2>Block Code</h2>
+
+<div class="container">
+  <div id="left">
+    <div id="grid"></div>
+  </div>
+  <div id="right">
+    <button id="playBtn" class="button ctl-btn">Start</button>
+    <div class="form">
+      <div class="form-row">
+        <label>sequence end</label><div class="row1"></div>
+      </div>
+      <div class="form-row">
+        <label>insert position</label><div class="row2"></div>
+      </div>
+      <div class="form-row">
+        <label>3rd note</label><div class="row3"></div>
+      </div>
+      <div class="form-row">
+        <label>2nd note</label><div class="row3"></div>
+      </div>
+      <div class="form-row">
+        <label>1st note</label><div class="row3"></div>
+      </div>
+      <div class="form-row">
+        <label>delete code</label><div class="row4"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas id="scope" width="600" height="300"></canvas>
+<audio id="audioEl" playsinline></audio>
+
+<script src="script/blockUI.js"></script>
+<script src="script/sequencer.js"></script>
+<script src="script/sequencerUI.js"></script>
+<script src="script/sound.js"></script>
+<script src="script/mixer.js"></script>
+<script src="script/keyboard.js"></script>
+<script src="script/main.js"></script>
+
+</body>
+</html>
