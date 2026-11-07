@@ -1,5 +1,5 @@
-const rows1 = document.querySelectorAll(".row1");
-const rows2 = document.querySelectorAll(".row2");
+//const rows1 = document.querySelectorAll(".row1");
+//const rows2 = document.querySelectorAll(".row2");
 const rows3 = document.querySelectorAll(".row3");
 const rows4 = document.querySelectorAll(".row4");
 let pushIndex = 0;
@@ -16,7 +16,7 @@ function initSequencerUI() {
       steps = i+1;
       updateUI();
     });
-    rows1[0].appendChild(lenBtn);
+    row1.appendChild(lenBtn);
 
     const insertBtn = document.createElement("button");
     insertBtn.classList.add("button", "step-btn");
@@ -27,7 +27,7 @@ function initSequencerUI() {
       pushIndex = i;
       updateUI();
     });
-    rows2[0].appendChild(insertBtn);
+    row2.appendChild(insertBtn);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("button", "step-btn");
@@ -77,14 +77,14 @@ function highlightStep(step, note1, note2) {
 }
 
 function updateUI() {
-  rows1[0].querySelectorAll(":scope > .button").forEach((btn, stepIndex) => {
+  row1.querySelectorAll(":scope > .button").forEach((btn, stepIndex) => {
     if (stepIndex == steps - 1) {
       btn.classList.toggle("active", true);
     } else {
       btn.classList.toggle("active", false);
     }
   });
-  rows2[0].querySelectorAll(":scope > .button").forEach((btn, stepIndex) => {
+  row2.querySelectorAll(":scope > .button").forEach((btn, stepIndex) => {
     if (stepIndex == pushIndex) {
       btn.classList.toggle("active", true);
     } else {

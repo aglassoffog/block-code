@@ -15,12 +15,27 @@
   </div>
   <div id="right">
     <button id="playBtn" class="button ctl-btn">Start</button>
+    <br><br>
     <div class="form">
       <div class="form-row">
-        <label>sequence end</label><div class="row1"></div>
+        <label>space</label><span>preview</span>
       </div>
       <div class="form-row">
-        <label>insert position</label><div class="row2"></div>
+        <label><button id="btnA" class="button">a</button></label><span>2nd note goes up</span>
+      </div>
+      <div class="form-row">
+        <label><button id="btnB" class="button">b</button></label><span>2nd note goes down</span>
+      </div>
+      <div class="form-row">
+        <label><button id="btnC" class="button">c</button></label><span>2nd note goes around</span>
+      </div>
+
+      <br>
+      <div class="form-row">
+        <label>sequence end</label><div id="row1"></div>
+      </div>
+      <div class="form-row">
+        <label>insert position</label><div id="row2"></div>
       </div>
       <div class="form-row">
         <label>3rd note</label><div class="row3"></div>
@@ -34,6 +49,11 @@
       <div class="form-row">
         <label>delete code</label><div class="row4"></div>
       </div>
+      <br>
+      <div class="form-row">
+        <label>2dn note</label><span id="second_offset">0</span>
+      </div>
+
     </div>
   </div>
 </div>

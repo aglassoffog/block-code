@@ -6,50 +6,28 @@ document.addEventListener("keydown", (event) => {
             playNow();
             break;
 
+        case "3":
+            initBlockUI(3);
+            break;
+
+        case "4":
+            initBlockUI(4);
+            break;
+
+        case "5":
+            initBlockUI(5);
+            break;
+
         case "a":
-            osc2NoteOffset++;
-            if (osc2NoteOffset > 7) {
-                osc2NoteOffset = -7;
-            }
+            secondNoteUp();
             break;
 
         case "b":
-            osc2NoteOffset--;
-            if (osc2NoteOffset < -7) {
-                osc2NoteOffset = 7;
-            }
+            secondNoteDown();
             break;
 
         case "c":
-            if (osc2NoteOffset === 5) {
-                osc2NoteOffset = -3;
-            } else if (osc2NoteOffset === -3) {
-                osc2NoteOffset = -5;
-            } else if (osc2NoteOffset === -5) {
-                osc2NoteOffset = 3;
-            } else if (osc2NoteOffset === 3) {
-                osc2NoteOffset = 5;
-            } else if (osc2NoteOffset === 7) {
-                osc2NoteOffset = -7;
-            } else if (osc2NoteOffset === -7) {
-                osc2NoteOffset = 7;
-            } else if (osc2NoteOffset === 4) {
-                osc2NoteOffset = -4;
-            } else if (osc2NoteOffset === -4) {
-                osc2NoteOffset = 4;
-            } else if (osc2NoteOffset === 1) {
-                osc2NoteOffset = -1;
-            } else if (osc2NoteOffset === -1) {
-                osc2NoteOffset = 1;
-            } else if (osc2NoteOffset === 6) {
-                osc2NoteOffset = 2;
-            } else if (osc2NoteOffset === 2) {
-                osc2NoteOffset = -2;
-            } else if (osc2NoteOffset === -2) {
-                osc2NoteOffset = -6;
-            } else if (osc2NoteOffset === -6) {
-                osc2NoteOffset = 6;
-            }
+            secondNoteCircle();
             break;
 
         case "I":
@@ -111,6 +89,11 @@ document.addEventListener("keydown", (event) => {
             y++;
             break;        
     }
+
+    commonKeyevent();
+});
+
+function commonKeyevent() {
     if (y < 0) {
         y = ROWS -1;
     }
@@ -119,4 +102,74 @@ document.addEventListener("keydown", (event) => {
     }
 
     updateSelection();
+}
+
+function secondNoteUp() {
+    osc2NoteOffset++;
+    if (osc2NoteOffset > 12) {
+        osc2NoteOffset = -12;
+    }
+}
+
+function secondNoteDown() {
+    osc2NoteOffset--;
+    if (osc2NoteOffset < -12) {
+        osc2NoteOffset = 12;
+    }
+}
+
+function secondNoteCircle() {
+    if (COLS == 3) {
+
+    } else if (COLS == 4) {
+        if (osc2NoteOffset === 5) {
+            osc2NoteOffset = -3;
+        } else if (osc2NoteOffset === -3) {
+            osc2NoteOffset = -5;
+        } else if (osc2NoteOffset === -5) {
+            osc2NoteOffset = 3;
+        } else if (osc2NoteOffset === 3) {
+            osc2NoteOffset = 5;
+
+        } else if (osc2NoteOffset === 7) {
+            osc2NoteOffset = -7;
+        } else if (osc2NoteOffset === -7) {
+            osc2NoteOffset = 7;
+
+        } else if (osc2NoteOffset === 4) {
+            osc2NoteOffset = -4;
+        } else if (osc2NoteOffset === -4) {
+            osc2NoteOffset = 4;
+        } else if (osc2NoteOffset === 1) {
+            osc2NoteOffset = -1;
+        } else if (osc2NoteOffset === -1) {
+            osc2NoteOffset = 1;
+
+        } else if (osc2NoteOffset === 6) {
+            osc2NoteOffset = 2;
+        } else if (osc2NoteOffset === 2) {
+            osc2NoteOffset = -2;
+        } else if (osc2NoteOffset === -2) {
+            osc2NoteOffset = -6;
+        } else if (osc2NoteOffset === -6) {
+            osc2NoteOffset = 6;
+        }
+    } else if (COLS == 5) {
+
+    }
+}
+
+btnA.addEventListener("click", () => {
+    secondNoteUp();
+    commonKeyevent();
+});
+
+btnB.addEventListener("click", () => {
+    secondNoteDown();
+    commonKeyevent();
+});
+
+btnC.addEventListener("click", () => {
+    secondNoteCircle();
+    commonKeyevent();
 });

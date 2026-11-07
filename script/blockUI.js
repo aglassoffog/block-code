@@ -10,22 +10,22 @@ const noteNames = [
 
 const freaqNumbers = [
     65.4064, 69.2957, 73.4162, 77.7817, 82.4069, 87.3071, 92.4986, 97.9989, 103.8262, 110.0000, 116.5409, 123.4708,
-    130.8128, 138.5913, 146.8324, 155.5635, 164.8138, 174.6141, 184.9972 , 195.9977, 207.6523, 220.0000, 233.0819, 246.9417,
+    130.8128, 138.5913, 146.8324, 155.5635, 164.8138, 174.6141, 184.9972, 195.9977, 207.6523, 220.0000, 233.0819, 246.9417,
     261.6256, 277.1826, 293.6648, 311.1270, 329.6276, 349.2282, 369.9944, 391.9954, 415.3047, 440.0000, 466.1638, 493.8833
 ]
 
 const reverseNames = noteNames.toReversed();
 const reversFreqs = freaqNumbers.toReversed();
-const COLS = 4;
-const ROWS = 9;
+let COLS = 4;
+let ROWS = 9;
 
 let x = 0;
-let y = 8;
+let y = 0;
 let x2 = 0;
 let y2 = 0;
-const cells  = [];
-const freaqs = [];
-const names  = [];
+let cells  = [];
+let freaqs = [];
+let names  = [];
 
 const cancelPress = () => {
   if (pressTimer) {
@@ -34,7 +34,25 @@ const cancelPress = () => {
   }
 };
 
-function initBlockUI() {
+function initBlockUI(c=4) {
+  COLS = c;
+  if (COLS == 3) {
+    ROWS = 12;
+    grid.style.setProperty('--column-count', 3);
+    grid.style.setProperty('--row-count', 12);
+  } else if (COLS == 4) {
+    ROWS = 9;
+    grid.style.setProperty('--column-count', 4);
+    grid.style.setProperty('--row-count', 9);
+  } else if (COLS == 5) {
+    ROWS = 7;
+    grid.style.setProperty('--column-count', 5);
+    grid.style.setProperty('--row-count', 7);
+  }
+  cells  = [];
+  freaqs = [];
+  names  = [];
+  grid.replaceChildren();
   for (let i = 0; i < ROWS; i++) {
     let lastIndex;
     for (let k = 0; k < COLS; k++) {
@@ -86,34 +104,26 @@ function updateSelection() {
 
     const index = y * COLS + x;
     cells[index].classList.add("selected");
-    y2 = y;
-    x2 = x + osc2NoteOffset;
+
+    y2 = y - Math.trunc(osc2NoteOffset / COLS);
+    x2 = x + osc2NoteOffset % COLS;
 
     if (x2 < 0) {
-        if (x2 < -COLS) {
-            y2 = y + 2;
-            x2 = COLS * 2 + x2;
-        } else {
-            y2 = y + 1;
-            x2 = COLS + x2;
-        }
-        if (y2 >= ROWS) {
-            x2 = 0;
-            y2 = ROWS - 1;
-        }
+      y2 += 1;
+      x2 += COLS;
     } else if (x2 >= COLS) {
-        if (x2 >= COLS * 2) {
-            y2 = y - 2;
-            x2 = x2 - COLS * 2;
-        } else {
-            y2 = y - 1;
-            x2 = x2 - COLS;
-        }
-        if (y2 < 0) {
-            x2 = COLS - 1;
-            y2 = 0;
-        }
+      y2 -= 1;
+      x2 -= COLS;
     }
+    if (y2 < 0) {
+        x2 = COLS - 1;
+        y2 = 0;
+    } else if (y2 >= ROWS) {
+        x2 = 0;
+        y2 = ROWS - 1;
+    }
+
     const index2 =  y2 * COLS + x2;
     cells[index2].classList.add("selected2");
+    second_offset.textContent = osc2NoteOffset;
 }

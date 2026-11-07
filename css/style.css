@@ -26,8 +26,10 @@ body {
 }
 #grid {
     display: grid;
-    grid-template-columns: repeat(4, 50px);
-    grid-template-rows: repeat(9, 50px);
+    --column-count: 4;
+    --row-count: 9;
+    grid-template-columns: repeat(var(--column-count), 50px);
+    grid-template-rows: repeat(var(--row-count), 50px);
     gap: 5px;
 }
 .cell {
@@ -89,3 +91,5 @@ body {
 .group-end {
     margin-right: 12px;
 }
+
+#second_offset { color:#0ff; }
