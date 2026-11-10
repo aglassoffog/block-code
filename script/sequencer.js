@@ -3,20 +3,26 @@ const scheduleAheadTime = 0.1;
 const lookahead = 25;
 let tempo = 60;
 let steps = 16;
-let pattern = [
+let patternFreaqs = [
   Array(16).fill(-1),
   Array(16).fill(-1),
   Array(16).fill(-1)
 ];
+let patternNames = [
+  Array(16).fill(""),
+  Array(16).fill(""),
+  Array(16).fill("")
+]
+
 let currentStep;
 let nextNoteTime = 0;
 let timerID;
 
 function scheduleStep(step, time) {
-  if (pattern[2][step] >= 0) {
-    playSound(pattern[2][step], pattern[1][step], time);
+  if (patternFreaqs[2][step] >= 0) {
+    playSound(patternFreaqs[2][step], patternFreaqs[1][step], patternFreaqs[0][step], time);
   }
-  highlightStep(step, pattern[2][step], pattern[1][step]);
+  highlightStep(step, patternNames[2][step], patternNames[1][step], patternNames[0][step]);
 }
 
 function stepDuration() {
@@ -48,7 +54,6 @@ playBtn.addEventListener("click", async () => {
     currentStep = 0;
     nextNoteTime = audioCtx.currentTime;
     timerID = setInterval(scheduler, lookahead);
-    highlightStep(currentStep, pattern[2][currentStep], pattern[1][currentStep]);
   } else {
     clearInterval(timerID);
     highlightStep(-1, -1, -1);

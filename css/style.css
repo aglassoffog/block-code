@@ -46,12 +46,20 @@ body {
 .cell.selected2 {
     border: 3px solid yellow;
 }
+.cell.selected3 {
+    border: 3px solid orange;
+}
+
 .cell.playing {
     background: #00ff00;
     opacity: 0.5;
 }
 .cell.playing2 {
     background: yellow;
+    opacity: 0.5;
+}
+.cell.playing3 {
+    background: orange;
     opacity: 0.5;
 }
 .note {
@@ -92,4 +100,4 @@ body {
     margin-right: 12px;
 }
 
-#second_offset { color:#0ff; }
+.offset { color:#0ff; }

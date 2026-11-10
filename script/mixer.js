@@ -1,6 +1,7 @@
 let masterGain;
 let gain1;
 let gain2;
+let gain3;
 let analyser;
 let timeData = new Float32Array(2048);
 const triggerLevel = 0;
@@ -20,10 +21,13 @@ async function initAudio() {
 
   gain1 = audioCtx.createGain();
   gain2 = audioCtx.createGain();
-  gain1.gain.value = 0.4;
-  gain2.gain.value = 0.4;
+  gain3 = audioCtx.createGain();
+  gain1.gain.value = 0.3;
+  gain2.gain.value = 0.3;
+  gain3.gain.value = 0.3;
   gain1.connect(masterGain);
   gain2.connect(masterGain);
+  gain3.connect(masterGain);
 
   await audioCtx.resume();
 

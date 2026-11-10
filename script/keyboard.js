@@ -63,55 +63,50 @@ document.addEventListener("keydown", (event) => {
             break;
 
         case "ArrowLeft":
-            x--;
-            if (x < 0) {
-                x = COLS -1;
-                y++;
-            }
+            xs[0]--;
             break;
 
         case "ArrowRight":
-            x++;
-            if (x >= COLS) {
-                x = 0;
-                y--;
-            }
+            xs[0]++;
             break;
 
         case "ArrowUp":
-            y--;
+            ys[0]--;
             break;
 
         case "ArrowDown":
-            y++;
+            ys[0]++;
             break;        
     }
 
-    commonKeyevent();
+    updateSelection();
 });
 
-function commonKeyevent() {
-    if (y < 0) {
-        y = ROWS -1;
-    }
-    if (y >= ROWS) {
-        y = 0;
-    }
-
-    updateSelection();
-}
-
 function secondNoteUp() {
-    osc2NoteOffset++;
-    if (osc2NoteOffset > 12) {
-        osc2NoteOffset = -12;
+    noteOffsets[0]++;
+    if (noteOffsets[0] > 12) {
+        noteOffsets[0] = -12;
     }
 }
 
 function secondNoteDown() {
-    osc2NoteOffset--;
-    if (osc2NoteOffset < -12) {
-        osc2NoteOffset = 12;
+    noteOffsets[0]--;
+    if (noteOffsets[0] < -12) {
+        noteOffsets[0] = 12;
+    }
+}
+
+function thirdNoteUp() {
+    noteOffsets[1]++;
+    if (noteOffsets[1] > 12) {
+        noteOffsets[1] = -12;
+    }
+}
+
+function thirdNoteDown() {
+    noteOffsets[1]--;
+    if (noteOffsets[1] < -12) {
+        noteOffsets[1] = 12;
     }
 }
 
@@ -159,32 +154,32 @@ function secondNoteCircle() {
 
 btnA.addEventListener("click", () => {
     secondNoteUp();
-    commonKeyevent();
+    updateSelection();
 });
 
 btnB.addEventListener("click", () => {
     secondNoteDown();
-    commonKeyevent();
+    updateSelection();
 });
 
 btnC.addEventListener("click", () => {
     secondNoteCircle();
-    commonKeyevent();
+    updateSelection();
 });
 
 btn3.addEventListener("click", () => {
     initBlockUI(3);
-    commonKeyevent();
+    updateSelection();
 });
 
 btn4.addEventListener("click", () => {
     initBlockUI(4);
-    commonKeyevent();
+    updateSelection();
 });
 
 btn5.addEventListener("click", () => {
     initBlockUI(5);
-    commonKeyevent();
+    updateSelection();
 });
 
 btnI.addEventListener("click", () => {

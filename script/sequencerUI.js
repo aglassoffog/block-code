@@ -34,12 +34,11 @@ function initSequencerUI() {
     deleteBtn.addEventListener("click", () => {
       deleteIndex = i;
       deleteCode();
-      updateUI();
     });
     row4.appendChild(deleteBtn);
   }
 
-  pattern.forEach((track, trackIndex) => {
+  patternFreaqs.forEach((track, trackIndex) => {
     const row = rows3[trackIndex];
 
     track.forEach((_, stepIndex) => {
@@ -57,7 +56,7 @@ function initSequencerUI() {
   updateUI();
 }
 
-function highlightStep(step, note1, note2) {
+function highlightStep(step, note1, note2, note3) {
   for(let i=0;i<2;i++){
     rows3.forEach((row, trackIndex) => {
       row.querySelectorAll(":scope > .step").forEach((cell, s) => {
@@ -67,8 +66,9 @@ function highlightStep(step, note1, note2) {
   }
   for (let i = 0; i < ROWS; i++) {
     for (let k = 0; k < COLS; k++) {
-      cells[i*COLS+k].classList.toggle("playing", i*COLS+k === note1);
-      cells[i*COLS+k].classList.toggle("playing2", i*COLS+k === note2);
+      cells[i*COLS+k].classList.toggle("playing", names[i*COLS+k] === note1);
+      cells[i*COLS+k].classList.toggle("playing2", names[i*COLS+k] === note2);
+      cells[i*COLS+k].classList.toggle("playing3", names[i*COLS+k] === note3);
     }
   }
 }
@@ -95,11 +95,7 @@ function updateUI() {
       } else {
         cell.style.opacity = 1;
       }
-      if (pattern[trackIndex][stepIndex] >= 0) {
-        cell.textContent = names[pattern[trackIndex][stepIndex]];
-      } else {
-        cell.textContent = "";
-      }
+      cell.textContent = patternNames[trackIndex][stepIndex];
     });
   });
   row4.querySelectorAll(":scope > .button").forEach((btn, stepIndex) => {
@@ -112,8 +108,12 @@ function updateUI() {
 }
 
 function pushCode() {
-  pattern[2][pushIndex] = y * COLS + x;
-  pattern[1][pushIndex] = y2 * COLS + x2;
+  patternFreaqs[2][pushIndex] = freaqs[ys[0] * COLS + xs[0]];
+  patternFreaqs[1][pushIndex] = freaqs[ys[1] * COLS + xs[1]];
+  patternFreaqs[0][pushIndex] = freaqs[ys[2] * COLS + xs[2]];
+  patternNames[2][pushIndex] = names[ys[0] * COLS + xs[0]];
+  patternNames[1][pushIndex] = names[ys[1] * COLS + xs[1]];
+  patternNames[0][pushIndex] = names[ys[2] * COLS + xs[2]];
   pushIndex++;
   if (pushIndex >= 15) {
     pushIndex = 15;
@@ -122,7 +122,11 @@ function pushCode() {
 }
 
 function deleteCode() {
-  pattern[2][deleteIndex] = -1;
-  pattern[1][deleteIndex] = -1;
+  patternFreaqs[2][deleteIndex] = -1;
+  patternFreaqs[1][deleteIndex] = -1;
+  patternFreaqs[0][deleteIndex] = -1;
+  patternNames[2][deleteIndex] = "";
+  patternNames[1][deleteIndex] = "";
+  patternNames[0][deleteIndex] = "";
   updateUI();
 }

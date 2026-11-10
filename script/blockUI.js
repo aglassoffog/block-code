@@ -1,7 +1,8 @@
-let osc2NoteOffset = 5; // 4度
+const offsets = document.querySelectorAll(".offset");
 let pressTimer = null;
 const LONG_PRESS_DURATION = 800;
 
+const selection = ["selected2", "selected3"];
 const noteNames = [
   "C2", "C2#", "D2", "D2#", "E2", "F2", "F2#", "G2", "G2#", "A2", "A2#", "B2",
   "C3", "C3#", "D3", "D3#", "E3", "F3", "F3#", "G3", "G3#", "A3", "A3#", "B3",
@@ -18,11 +19,9 @@ const reverseNames = noteNames.toReversed();
 const reversFreqs = freaqNumbers.toReversed();
 let COLS = 4;
 let ROWS = 9;
-
-let x = 0;
-let y = 0;
-let x2 = 0;
-let y2 = 0;
+const noteOffsets = [4,3]; // 3度,5度
+const xs = [0,0,0];
+const ys = [1,0,0];
 let cells  = [];
 let freaqs = [];
 let names  = [];
@@ -100,30 +99,47 @@ function updateSelection() {
     cells.forEach(cell => {
         cell.classList.remove("selected");
         cell.classList.remove("selected2");
+        cell.classList.remove("selected3");
     });
 
-    const index = y * COLS + x;
+    if (xs[0] < 0) {
+        ys[0] += 1;
+        xs[0] += COLS;
+    } else if (xs[0] >= COLS) {
+        ys[0] -= 1;
+        xs[0] -= COLS;
+    }
+    if (ys[0] < 0) {
+        ys[0] = ROWS -1;
+    } else if (ys[0] >= ROWS) {
+        ys[0] = 0;
+    }
+    const index = ys[0] * COLS + xs[0];
     cells[index].classList.add("selected");
 
-    y2 = y - Math.trunc(osc2NoteOffset / COLS);
-    x2 = x + osc2NoteOffset % COLS;
+    for (let i = 0; i < 2; i++) {
+        ys[i+1] = ys[i] - Math.trunc(noteOffsets[i] / COLS);
+        xs[i+1] = xs[i] + noteOffsets[i] % COLS;
 
-    if (x2 < 0) {
-      y2 += 1;
-      x2 += COLS;
-    } else if (x2 >= COLS) {
-      y2 -= 1;
-      x2 -= COLS;
-    }
-    if (y2 < 0) {
-        x2 = COLS - 1;
-        y2 = 0;
-    } else if (y2 >= ROWS) {
-        x2 = 0;
-        y2 = ROWS - 1;
+        if (xs[i+1] < 0) {
+          ys[i+1] += 1;
+          xs[i+1] += COLS;
+        } else if (xs[i+1] >= COLS) {
+          ys[i+1] -= 1;
+          xs[i+1] -= COLS;
+        }
+        if (ys[i+1] < 0) {
+            xs[i+1] = COLS - 1;
+            ys[i+1] = 0;
+        } else if (ys[i+1] >= ROWS) {
+            xs[i+1] = 0;
+            ys[i+1] = ROWS - 1;
+        }
+
+        const idx =  ys[i+1] * COLS + xs[i+1];
+        cells[idx].classList.add(selection[i]);
     }
 
-    const index2 =  y2 * COLS + x2;
-    cells[index2].classList.add("selected2");
-    second_offset.textContent = osc2NoteOffset;
+    offsets[0].textContent = noteOffsets[0];
+    offsets[1].textContent = noteOffsets[0] + noteOffsets[1];
 }
