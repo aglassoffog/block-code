@@ -31,9 +31,11 @@ document.addEventListener("keydown", (event) => {
             break;
 
         case "I":
-            const index1 = y * COLS + x;
-            const index2 = y2 * COLS + x2;
-            pushCode(index1, index2);
+            pushCode();
+            break;
+
+        case "D":
+            deleteCode();
             break;
 
         case "i":
@@ -41,7 +43,7 @@ document.addEventListener("keydown", (event) => {
             if (pushIndex > 15) {
                 pushIndex = 0;
             }
-            updateUI();
+            updateUI();            
             break;
 
         case "d":
@@ -49,11 +51,6 @@ document.addEventListener("keydown", (event) => {
             if (deleteIndex > 15) {
                 deleteIndex = 0;
             }
-            updateUI();
-            break;
-
-        case "D":
-            deleteCode();
             updateUI();
             break;
 
@@ -159,6 +156,7 @@ function secondNoteCircle() {
     }
 }
 
+
 btnA.addEventListener("click", () => {
     secondNoteUp();
     commonKeyevent();
@@ -172,4 +170,27 @@ btnB.addEventListener("click", () => {
 btnC.addEventListener("click", () => {
     secondNoteCircle();
     commonKeyevent();
+});
+
+btn3.addEventListener("click", () => {
+    initBlockUI(3);
+    commonKeyevent();
+});
+
+btn4.addEventListener("click", () => {
+    initBlockUI(4);
+    commonKeyevent();
+});
+
+btn5.addEventListener("click", () => {
+    initBlockUI(5);
+    commonKeyevent();
+});
+
+btnI.addEventListener("click", () => {
+    pushCode();
+});
+
+btnD.addEventListener("click", () => {
+    deleteCode();
 });

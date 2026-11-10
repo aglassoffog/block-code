@@ -1,7 +1,4 @@
-//const rows1 = document.querySelectorAll(".row1");
-//const rows2 = document.querySelectorAll(".row2");
 const rows3 = document.querySelectorAll(".row3");
-const rows4 = document.querySelectorAll(".row4");
 let pushIndex = 0;
 let deleteIndex = 0;
 
@@ -39,7 +36,7 @@ function initSequencerUI() {
       deleteCode();
       updateUI();
     });
-    rows4[0].appendChild(deleteBtn);
+    row4.appendChild(deleteBtn);
   }
 
   pattern.forEach((track, trackIndex) => {
@@ -105,7 +102,7 @@ function updateUI() {
       }
     });
   });
-  rows4[0].querySelectorAll(":scope > .button").forEach((btn, stepIndex) => {
+  row4.querySelectorAll(":scope > .button").forEach((btn, stepIndex) => {
     if (stepIndex == deleteIndex) {
       btn.classList.toggle("active", true);
     } else {
@@ -114,9 +111,9 @@ function updateUI() {
   });
 }
 
-function pushCode(index1, index2) {
-  pattern[2][pushIndex] = index1;
-  pattern[1][pushIndex] = index2;
+function pushCode() {
+  pattern[2][pushIndex] = y * COLS + x;
+  pattern[1][pushIndex] = y2 * COLS + x2;
   pushIndex++;
   if (pushIndex >= 15) {
     pushIndex = 15;
